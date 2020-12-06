@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script src="../vendor/jquery/jquery.min.js"></script>
+<script src="../vendor/jquery.cookie/jquery.cookie.js"></script>
+<script src="../js/layer.js"></script>
+<script src="../js/vue-2.6.11.js"></script>
+<script src="../js/axios-0.19.2.min.js"></script>
+<script src="../js/jquery-cookie-1.4.1.js"></script>
+<script>
+    $(function () {
+        new Vue({
+            data: {},
+            methods: {
+                getWxLoginInfo() {
+                    axios.post("/getWxLoginInfo").then((res) => {
+                        if (res.data.flag) {
+                            // 登录处理
+                            $.cookie("userId", res.data.data.userId, {path: "/", expires: 7})
+
+                            // 存储到localStorage中
+                            localStorage.setItem("loginUser", JSON.stringify(res.data.data.loginUser))
+
+                            // 跳转到首页
+                            location.href = '/html/home.html';
+                        } else {
+                            layer.msg(res.data.message)
+                        }
+                    })
+                }
+            },
+            created() {
+                this.getWxLoginInfo();
+            }
+        })
+    })
+</script>
+</body>
+</html>

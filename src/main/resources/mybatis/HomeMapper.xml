@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.xb.mapper.HomeMapper">
+    <select id="findHomeCount" resultType="map">
+        SELECT
+	( SELECT count( DATE_FORMAT( register_time, '%Y-%m-%d' )= CURDATE() OR NULL ) FROM `user` ) userCount,
+	( SELECT count( DATE_FORMAT( publish_date, '%Y-%m-%d' )= CURDATE() OR NULL ) FROM article ) articleCount,
+	( SELECT count( DATE_FORMAT( publish_date, '%Y-%m-%d' )= CURDATE() OR NULL ) FROM meeting ) meetingCount
+    </select>
+
+    <select id="findHomeDetail" resultType="map">
+ 		SELECT
+			count( DATE_FORMAT( register_time, '%Y-%m-%d' ) = ADDDATE( CURDATE( ),- 6 ) OR NULL ) day7 ,
+			count( DATE_FORMAT( register_time, '%Y-%m-%d' ) = ADDDATE( CURDATE( ),- 5 ) OR NULL ) day6,
+			count( DATE_FORMAT( register_time, '%Y-%m-%d' ) = ADDDATE( CURDATE( ),- 4 ) OR NULL ) day5,
+			count( DATE_FORMAT( register_time, '%Y-%m-%d' ) = ADDDATE( CURDATE( ),- 3 ) OR NULL ) day4,
+			count( DATE_FORMAT( register_time, '%Y-%m-%d' ) = ADDDATE( CURDATE( ),- 2 ) OR NULL ) day3,
+			count( DATE_FORMAT( register_time, '%Y-%m-%d' ) = ADDDATE( CURDATE( ),- 1 ) OR NULL ) day2,
+			count( DATE_FORMAT( register_time, '%Y-%m-%d' ) = CURDATE( ) OR NULL ) day1
+		FROM
+			user
+			UNION ALL
+		SELECT
+			count( DATE_FORMAT( publish_date, '%Y-%m-%d' ) = ADDDATE( CURDATE(),- 6 ) OR NULL ) day7,
+			count( DATE_FORMAT( publish_date, '%Y-%m-%d' ) = ADDDATE( CURDATE(),- 5 ) OR NULL ) day6,
+			count( DATE_FORMAT( publish_date, '%Y-%m-%d' ) = ADDDATE( CURDATE(),- 4 ) OR NULL ) day5,
+			count( DATE_FORMAT( publish_date, '%Y-%m-%d' ) = ADDDATE( CURDATE(),- 3 ) OR NULL ) day4,
+			count( DATE_FORMAT( publish_date, '%Y-%m-%d' ) = ADDDATE( CURDATE(),- 2 ) OR NULL ) day3,
+			count( DATE_FORMAT( publish_date, '%Y-%m-%d' ) = ADDDATE( CURDATE(),- 1 ) OR NULL ) day2,
+			count( DATE_FORMAT( publish_date, '%Y-%m-%d' ) = CURDATE() OR NULL ) day1
+		FROM
+			article
+			UNION ALL
+		SELECT
+			count( DATE_FORMAT( publish_date, '%Y-%m-%d' ) = ADDDATE( CURDATE( ),- 6 ) OR NULL ) day7,
+			count( DATE_FORMAT( publish_date, '%Y-%m-%d' ) = ADDDATE( CURDATE( ),- 5 ) OR NULL ) day6,
+			count( DATE_FORMAT( publish_date, '%Y-%m-%d' ) = ADDDATE( CURDATE( ),- 4 ) OR NULL ) day5,
+			count( DATE_FORMAT( publish_date, '%Y-%m-%d' ) = ADDDATE( CURDATE( ),- 3 ) OR NULL ) day4,
+			count( DATE_FORMAT( publish_date, '%Y-%m-%d' ) = ADDDATE( CURDATE( ),- 2 ) OR NULL ) day3,
+			count( DATE_FORMAT( publish_date, '%Y-%m-%d' ) = ADDDATE( CURDATE( ),- 1 ) OR NULL ) day2,
+			count( DATE_FORMAT( publish_date, '%Y-%m-%d' ) = CURDATE( ) OR NULL ) day1
+		FROM
+			meeting;
+    </select>
+</mapper>

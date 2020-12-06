@@ -1,0 +1,65 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en" xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+    <!--<meta charset="UTF-8">-->
+    <!--<title>Title</title>-->
+    <!--<script src="../static/js/jquery-1.11.1.js"></script>-->
+<!--</head>-->
+<!--<body>-->
+
+<!--<div id="panel" style="width: 800px; height: 400px;overflow: scroll;">-->
+
+<!--</div>-->
+
+<!--<input type="text" placeholder="请输入消息..." id="msg">-->
+<!--<button id="btn">发送</button>-->
+<!--<button id="clear">清屏</button>-->
+
+<!--</body>-->
+<!--<script th:inline="javascript">-->
+
+    <!--$(function () {-->
+        <!--var socket = new WebSocket("ws://localhost:8080/websocket/" + [[${username}]]);-->
+        <!--//打开事件-->
+        <!--socket.onopen = function (event) {-->
+            <!--// socket.send("这是来自客户端的消息" + location.href + new Date().toLocaleTimeString());-->
+        <!--};-->
+
+        <!--//获得消息事件-->
+        <!--socket.onmessage = function (event) {-->
+
+            <!--var data = event.data;-->
+
+            <!--var src = $("#panel").html()-->
+
+            <!--$("#panel").html(src + "<br/>" + data);-->
+
+        <!--};-->
+
+        <!--//关闭事件-->
+        <!--socket.onclose = function (event) {-->
+            <!--socket.send([[${username}]] + "退出了聊天室");-->
+        <!--};-->
+
+
+        <!--//发生了错误事件-->
+        <!--socket.onerror = function (event) {-->
+            <!--alert("Socket发生了错误");-->
+            <!--//此时可以尝试刷新页面-->
+        <!--}-->
+
+
+        <!--$("#btn").click(function () {-->
+            <!--// $("#panel").html($("#panel").html() + "<br/>" + $("#msg").val());-->
+            <!--socket.send([[${username}]] + ":" + $("#msg").val());-->
+
+            <!--$("#msg").val("")-->
+        <!--})-->
+
+        <!--$("#clear").click(function () {-->
+            <!--$("#panel").html("");-->
+        <!--})-->
+    <!--})-->
+
+<!--</script>-->
+<!--</html>-->
